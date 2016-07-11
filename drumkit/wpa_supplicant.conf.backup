@@ -1,0 +1,34 @@
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+country=AU
+
+network={
+	ssid="NCW"
+	psk="malolos5459"
+	key_mgmt=WPA-PSK
+}
+
+network={
+	ssid="dgTether"
+	psk="VisualStudio2005"
+	key_mgmt=WPA-PSK
+}
+
+network={
+	ssid="Microsoft Surface"
+	psk="Microsoft#Net999"
+	key_mgmt=WPA-PSK
+}
+
+network={
+	ssid="dgWAP"
+	psk="VisualStudio2005"
+	key_mgmt=WPA-PSK
+}
+
+network={
+        ssid="_WestfieldFreeWiFi"
+	psk="bad key"
+        key_mgmt=WPA-PSK
+}
+

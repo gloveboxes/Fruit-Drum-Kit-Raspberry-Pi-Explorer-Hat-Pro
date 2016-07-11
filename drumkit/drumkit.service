@@ -1,0 +1,12 @@
+[Unit]
+Description=Vivid Light and Sound Control Service
+After=network.target
+
+[Service]
+ExecStart=/home/pi/drumkit/drumkit-rgb.py
+Type=oneshot
+RemainAfterExit=yes
+User=pi
+
+[Install]
+WantedBy=multi-user.target
