@@ -1,4 +1,5 @@
 #!/bin/bash
-sleep 5
+sleep 2
 cd /home/pi/drumkit
-/home/pi/drumkit/drumkit.py&
+./drumkit-rgb.py&
+#./drumkit-wristband.py&
