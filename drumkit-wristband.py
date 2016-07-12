@@ -28,11 +28,6 @@ light = [{'MsgId':0,'LightId':[1,2],'Red':0,'Green':0,'Blue':255},
          {'MsgId':0,'LightId':[1,2],'Red':0,'Green':255,'Blue':0}
 ]
 
-     
-
-
-
-
 LEDS = [4, 17, 27, 5]
 
 samples = [
@@ -74,13 +69,12 @@ def on_disconnect(client, userdata, rc):
     print("MQTT Disconnected with result code "+str(rc))
     if rc != 0:
         print("Unexpected disconnection.")
-        client.reconnect()
 
 
 client = mqtt.Client()
 client.on_connect = on_connect
 client.on_disconnect = on_disconnect
-client.connect("rpizero.local", 1883, 60)
+client.connect_async("rpizero.local", 1883, 60)
 client.loop_start()
 
 explorerhat.touch.pressed(handle)

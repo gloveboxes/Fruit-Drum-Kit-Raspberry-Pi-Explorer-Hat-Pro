@@ -3,7 +3,7 @@ Description=Vivid Light and Sound Control Service
 After=network.target
 
 [Service]
-ExecStart=/home/pi/drumkit/drumkit-rgb.py
+ExecStart=/home/pi/drumkit/start-drums.sh
 Type=oneshot
 RemainAfterExit=yes
 User=pi
