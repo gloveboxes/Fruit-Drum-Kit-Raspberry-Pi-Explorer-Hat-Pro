@@ -11,12 +11,13 @@ Press CTRL+C to exit.
 import signal
 import pygame
 import explorerhat
+import json
 
 # https://pypi.python.org/pypi/paho-mqtt
 # http://www.eclipse.org/paho/clients/python/docs/
 
 import paho.mqtt.client as mqtt
-import json
+
 
 light = [{'MsgId':0,'LightId':[1,2],'Red':0,'Green':0,'Blue':255},
          {'MsgId':0,'LightId':[1,2],'Red':255,'Green':255,'Blue':0},
@@ -67,8 +68,6 @@ def on_connect(client, userdata, rc):
 def on_disconnect(client, userdata, rc):
     explorerhat.light.green.off()
     print("MQTT Disconnected with result code "+str(rc))
-    if rc != 0:
-        print("Unexpected disconnection.")
 
 
 client = mqtt.Client()
