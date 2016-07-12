@@ -11,7 +11,10 @@ Press CTRL+C to exit.
 import signal
 import pygame
 import explorerhat
+
 # https://pypi.python.org/pypi/paho-mqtt
+# http://www.eclipse.org/paho/clients/python/docs/
+
 import paho.mqtt.client as mqtt
 import json
 
@@ -28,7 +31,7 @@ light = [{'MsgId':0,'LightId':[1,2],'Red':0,'Green':0,'Blue':255},
      
 
 
-client = mqtt.Client()
+
 
 LEDS = [4, 17, 27, 5]
 
@@ -53,34 +56,32 @@ for x in range(8):
 
 
 def handle(ch, evt):
-    if ch > 4:
-        led = ch - 5
-    else:
-        led = ch - 1
     if evt == 'press':
-        client.publish('msstore/vivid/light/1', json.dumps(light[ch-1]))
-        explorerhat.light[led].fade(0, 100, 0.1)
+        client.publish('dmx/data', json.dumps(light[ch-1]))
+        explorerhat.light.blue.fade(0, 100, 0.1)
         sounds[ch - 1].play(loops=0)
         name = samples[ch - 1].replace('/home/pi/vivid/sounds/','').replace('.wav','')
         print("{}!".format(name.capitalize()))
     else:
-        explorerhat.light[led].off()
+        explorerhat.light.blue.off()
 
-def on_connect(client, userdata, flags, rc):
-    print("Connected with result code "+str(rc))
+def on_connect(client, userdata, rc):
+    explorerhat.light.green.on()
+    print("MQTT Connected with result code "+str(rc))
 
 def on_disconnect(client, userdata, rc):
+    explorerhat.light.green.off()
+    print("MQTT Disconnected with result code "+str(rc))
     if rc != 0:
         print("Unexpected disconnection.")
         client.reconnect()
 
 
-
-client.connect("rpidmx02.local", 1883, 60)
+client = mqtt.Client()
 client.on_connect = on_connect
 client.on_disconnect = on_disconnect
-
-
+client.connect("rpizero.local", 1883, 60)
+client.loop_start()
 
 explorerhat.touch.pressed(handle)
 explorerhat.touch.released(handle)
