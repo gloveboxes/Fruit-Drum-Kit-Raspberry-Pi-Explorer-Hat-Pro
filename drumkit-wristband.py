@@ -37,22 +37,14 @@ explorerhat.light.blue.on()
 
 
 samples = [
-    #'sounds/drums/hat.wav',
-    #'sounds/drums/smash.wav',
-    #'sounds/drums/rim.wav',
-    #'sounds/drums/ting.wav',
     'sounds/ben/kick.wav',
     'sounds/ben/snare.wav',
     'sounds/ben/hat.wav',
-    'sounds/drums/hit.wav',
-    'sounds/drums/thud.wav',
-    'sounds/drums/clap.wav',
-    'sounds/drums/crash.wav',
-    'sounds/balmer/kick.wav',
-   # 'sounds/balmer/snare.wav',
-   # 'sounds/balmer/iltc_this.wav',
-   # 'sounds/balmer/iltc_company.wav',
-    'sounds/beep.wav',
+    'sounds/ben/synth.wav',
+    'sounds/ben/synth_start.wav',
+    'sounds/ben/synth_hit_1.wav',
+    'sounds/ben/synth_hit_2.wav',
+    'sounds/ben/impact.wav',
 ]
 
 
@@ -62,7 +54,7 @@ pygame.mixer.init()
 pygame.mixer.set_num_channels(16)
 
 sounds = []
-for x in range(9):
+for x in range(8):
     sounds.append(pygame.mixer.Sound(samples[x]))
 
 
@@ -91,7 +83,7 @@ def handle(ch, evt):
             explorerhat.light.red.off()
             
             drumMode = ch - 1                   #set drum mode: 0 = drums, 1 = ballmer
-            sounds[8].play(loops=0)             #play status change sound
+            #sounds[8].play(loops=0)             #play status change sound
             explorerhat.light[drumMode].on()    #set status led
             
             return
@@ -99,7 +91,7 @@ def handle(ch, evt):
         if ch == 3:             #set all wristbands and rgb lights to black/off
             
             explorerhat.light.red.on()  #set all black/off status light
-            sounds[8].play(loops=0)     #play status change sound
+            #sounds[8].play(loops=0)     #play status change sound
 
             client.publish('dmx/data', wristbandToJson(4, 1))   # publish control data for wristband
             client.publish('dmx/data', json.dumps(light[4]))    # publish control data for rgb lights
