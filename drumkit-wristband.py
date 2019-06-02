@@ -17,7 +17,7 @@ import base64
 import paho.mqtt.client as mqtt     # https://pypi.python.org/pypi/paho-mqtt and http://www.eclipse.org/paho/clients/python/docs/
 
 
-mqttBroker = "rpidmx01.local"
+mqttBroker = "localhost"
 
 wristbandColours = [16, 48, 160, 144, 0]
 
@@ -110,7 +110,7 @@ def handle(ch, evt):
         sounds[instrument].play(loops=0)
 
 
-def on_connect(client, userdata, rc):
+def on_connect(client, userdata, flags, rc):
     explorerhat.light.green.on()        #Set MQTT Connected status led
     print("MQTT Connected with result code "+str(rc))
     
@@ -123,7 +123,8 @@ def on_disconnect(client, userdata, rc):
 
 if len(sys.argv) > 1:
     mqttBroker = sys.argv[1]
-    print("MQTT Broker " + mqttBroker)
+
+print("MQTT Broker " + mqttBroker)
 
 client = mqtt.Client()
 client.on_connect = on_connect
